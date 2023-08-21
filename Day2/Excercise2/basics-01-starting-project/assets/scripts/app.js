@@ -32,13 +32,16 @@ function add(num1, num2) {
 //function call
 // outputResult(currentResult, calculationDescription);
 
-
-let currentResult = 0;
+const defaultvalue = 0;
+let currentResult = defaultvalue;
 
 function add() {
      
+    const calcDescription = `${currentResult} + ${userInput.value}`;
     currentResult = currentResult + parseInt(userInput.value);//here using type conversation
-    outputResult(currentResult, " ");
+    // currentResult = currentResult + + userInput.value; //we can write like this insread typeconvetsation
+    
+    outputResult(currentResult, calcDescription);
 
 }
 
