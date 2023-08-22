@@ -2,32 +2,9 @@
 function add(num1, num2) {
     const result = num1 + num2;
     // alert(`The result of Addition of ${num1} and ${num2} is:` + result);
-
     return result;
 }
 
-//now I'm calling the function
-// add(12,34);
-
-//use const variable 
-// const currentResult = add(12,34);
-
-// currentResult = (currentResult + 10) * 3 / 2 - 1; //using Arithmatic Operators
-// here using backticks
-// let calculationDescription = `(${currentResult} + 10) * 3 / 2 - 1`; //template literal
-
-/* here did some string operation
- let errormessage = `This is my erro message  
-
- whichi want to show`;
-
- let errormessage = "This is my erro message"+
-
- "which want to show";
-
- let errormessage = "This is my erro message \n"+
-
- "which want to show"; */
 
 //function call
 // outputResult(currentResult, calculationDescription);
@@ -35,23 +12,67 @@ function add(num1, num2) {
 const defaultvalue = 0;
 let currentResult = defaultvalue;
 
-function add() {
-     
-    const calcDescription = `${currentResult} + ${userInput.value}`;
-    currentResult = currentResult + parseInt(userInput.value);//here using type conversation
-    // currentResult = currentResult + + userInput.value; //we can write like this insread typeconvetsation
-    
+function getUserNumberInput() {
+    return parseInt(userInput.value);
+}
+
+function createAndWriteOutput(operator, resultbeforCalc, calcNumber) {
+    const calcDescription = `${resultbeforCalc} ${operator} ${calcNumber}`;
     outputResult(currentResult, calcDescription);
+}
+
+function add() {
+
+    //taking input by using function
+    const enteredNumber = getUserNumberInput();
+    const initialResult = currentResult;
+    currentResult = currentResult + enteredNumber;//here using type conversation
+    // currentResult = currentResult + + userInput.value; //we can write like this insread typeconvetsation
+    createAndWriteOutput('+', initialResult, enteredNumber);
+
+}
+
+function subtract() {
+
+
+    const enteredNumber = getUserNumberInput();
+    const initialResult = currentResult;
+    currentResult = currentResult - enteredNumber;//here using type conversation
+    createAndWriteOutput('-', initialResult, enteredNumber);
+
+}
+
+function multiplication() {
+
+
+    const enteredNumber = getUserNumberInput();
+    const initialResult = currentResult;
+    currentResult = currentResult * enteredNumber;//here using type conversation
+    createAndWriteOutput('*', initialResult, enteredNumber);
+
+}
+
+function devision() {
+
+    const enteredNumber = getUserNumberInput();
+    const initialResult = currentResult;
+    currentResult = currentResult / enteredNumber;//here using type conversation
+    createAndWriteOutput('/', initialResult, enteredNumber);
 
 }
 
 
 
 
+
+
+
 // addEventListener
 
-addBtn.addEventListener("click",add) //addEvenListener take two arguments
-
+addBtn.addEventListener("click", add); //addEvenListener take two arguments
+subtractBtn.addEventListener("click", subtract); 
+multiplyBtn.addEventListener("click", multiplication); 
+divideBtn.addEventListener("click", devision); 
 
 //for understanding Function
 
