@@ -11,6 +11,7 @@ function add(num1, num2) {
 
 const defaultvalue = 0;
 let currentResult = defaultvalue;
+let logEntries = [];  //for storing use inputs
 
 function getUserNumberInput() {
     return parseInt(userInput.value);
@@ -30,11 +31,20 @@ function add() {
     // currentResult = currentResult + + userInput.value; //we can write like this insread typeconvetsation
     createAndWriteOutput('+', initialResult, enteredNumber);
 
+    //creat object
+    const logEntry = {
+        operation:"ADD",
+        prevResult:initialResult,
+        number:enteredNumber,
+        result:currentResult
+    }
+    
+    logEntries.push(logEntry);
+    console.log(logEntries); 
+
 }
 
 function subtract() {
-
-
     const enteredNumber = getUserNumberInput();
     const initialResult = currentResult;
     currentResult = currentResult - enteredNumber;//here using type conversation
@@ -43,8 +53,6 @@ function subtract() {
 }
 
 function multiplication() {
-
-
     const enteredNumber = getUserNumberInput();
     const initialResult = currentResult;
     currentResult = currentResult * enteredNumber;//here using type conversation
@@ -53,17 +61,12 @@ function multiplication() {
 }
 
 function devision() {
-
     const enteredNumber = getUserNumberInput();
     const initialResult = currentResult;
     currentResult = currentResult / enteredNumber;//here using type conversation
     createAndWriteOutput('/', initialResult, enteredNumber);
 
 }
-
-
-
-
 
 
 
@@ -75,4 +78,3 @@ multiplyBtn.addEventListener("click", multiplication);
 divideBtn.addEventListener("click", devision); 
 
 //for understanding Function
-
