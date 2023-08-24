@@ -12,16 +12,38 @@ const LOG_EVENT_MONSTER_ATTACK = 'MONSTER_ATTACK'
 const LOG_EVENT_PLAYER_HEAL = 'PLAYER_HEAL';
 const LOG_EVENT_GAME_OVER = 'GAME_OVER';
 
-//take input from user
-const enteredValue = prompt("Maximum life for you and the master", "100");
-let chosenMaxLife = parseInt(enteredValue);
+
+function getMaxLifeValues() {
+    const enteredValue = prompt("Maximum life for you and the master", "100");
+    let parseValue = parseInt(enteredValue);
+
+
+    if (isNaN(parseValue) || parseValue <= 0) {
+        throw { message: "invalid use input, not a number!" }; //throwing custom error
+    }
+
+    return parseValue
+}
+
+let chosenMaxLife;
+
+//use of try,catch and finally
+try {
+    //take input from user
+    let chosenMaxLife = getMaxLifeValues();
+}
+catch (error) {
+    chosenMaxLife = 100;
+    console.log(error);
+    // throw {message : "this is error"};
+}
+finally {
+    console.log('This is my finally block');
+}
+
 
 //take empty array for storing logs
 let battleLog = [];
-
-if (isNaN(chosenMaxLife) || chosenMaxLife <= 0) {
-    chosenMaxLife = 100;
-}
 
 let currentMonsterHealth = chosenMaxLife;
 let currentplayerHealth = chosenMaxLife;
@@ -202,10 +224,56 @@ function healPlayerHandler() {
 
 //for making log
 function printlogHandler() {
-    console.log(battleLog);
+
+    //here i practiced the use of loop
+
+    // for(let i=0;i<3;i++){
+    //     console.log('-------------------');
+    // }
+
+    //using for -of loop
+    for (const en of battleLog) {
+        console.log(en);
+    }
+    // console.log(battleLog);
+    //using for in loop
+    //print the last log
+    let i = 0;
+    let lastlogEntry;
+    for (const el of battleLog) {
+        if (!lastlogEntry && lastlogEntry != 0 || lastlogEntry < 0) {
+            for (const key in el) {
+                console.log(`${key} => ${el[key]}`);
+            }
+
+            lastlogEntry = i;
+            break;
+        }
+        i++;
+    }
+    //using while loop  
+
+    //  let j=3;
+    //  while(j>=0){
+    //     console.log(j);
+    //     j--;
+    //  }
+
+    //do-while
+    // let k = 3;
+    // do {
+    //     console.log(k);
+    //     k--;
+    // } while (j > 0)
 }
+
 
 attackBtn.addEventListener('click', attackHandler);
 strongAttackBtn.addEventListener('click', strongAttackHandler);
 healBtn.addEventListener('click', healPlayerHandler);
 logBtn.addEventListener('click', printlogHandler);
+
+
+
+
+//
