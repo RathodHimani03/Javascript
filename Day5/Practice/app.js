@@ -1,17 +1,31 @@
+
 const h1 = document.getElementById('main-title');
 
-h1.textContent = 'Some new title!';
-h1.style.color = 'pink';
-h1.style.backgroundColor = 'blue';
+// h1.textContent = 'Some new title!';
+// h1.style.color = 'pink';
+// h1.style.backgroundColor = 'blue';
 
-const li = document.querySelector('li:last-of-type');
-li.textContent = li.textContent + ' (Changed!)';
+// const ul = document.firstElementChild.nextElementSibling;
+// const firstLi = ul.firstElementChild;
 
-const body = document.body;
+// console.log(firstLi);
 
-// const listItemElements = document.querySelectorAll('li');
-const listItemElements = document.getElementsByTagName('li');
+const section = document.querySelector('section');
+console.log(section.className)
 
-for (const listItemEl of listItemElements) {
-  console.dir(listItemEl);
+const button = document.querySelector('button');
+button.addEventListener(
+'click',
+() => {
+section.classList.toggle('visible');
+section.classList.toggle('invisible');
+
 }
+
+)
+//adding new content to an existing element with some html cide
+const div = document.querySelector('div');
+div.innerHTML = div.innerHTML + '<p>Something went wrong!</p>';
+
+div.insertAdjacentHTML('beforeend','<p>Something went wrong')
+
