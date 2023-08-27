@@ -1,0 +1,93 @@
+<!-- //for understanding -->
+
+
+<!-- 
+//Query methods
+
+
+document.queryselector('#list-item')
+document.queryselector('#list-item')
+document.ElementbyId('main-title')
+document.ElementByClassName('list-item')
+document.ElementByTagName('ul') -->
+
+<!-- 
+const h1 = document.querySelector('list-item');
+h1.className  ==> list-item
+h1.style   ==>show css 
+h1.style.color = 'pink'   =>it will change the color -->
+
+
+
+<!-- const input = document.querySelector('input') //i'm just changing the value and take default value!!
+const input2 = document.querySelector('input') //i will show me updated value
+
+
+now i'm changing value of input2
+input2.value = "Hello Friends!" //here value will be reflected to ui but in element when we see value that was our past value default value!!
+
+const h1 = document.getElementById('main-title');
+h1.id = 'new-id'  //it will change the id 
+
+input.setAttribute('value','some other default')//it will change the value but not reflect in ui
+input.value = getAttribute('value')//now will reflect to ui
+
+
+-->
+
+when we using queryselector at that we can see first item only
+so taking full list by parentnode
+
+Example : consider the index.html
+
+const ul = document.queryselector('ul') 
+ul.childer //give the list of all programs
+
+//children take only select child element nodes
+ //childnode - takes all childnode (also includes textnodes)
+ul.childNodes //gives all childnode
+
+
+
+//want to fetch first and last items of queryselector
+
+document.querySelector('li:last-of-type)
+
+ul.firstchild  //to get first child
+ul.firstElementChild  //to get first element child
+
+//parent node and parent element
+
+
+**Each node can only have one parent
+**only element node can have only child node
+**textnode can't have child node
+**all parent element and parent element node always refer to the nearest parennt ElementByClassName
+ 
+ 
+const lifirst = document.querySelector('li')
+lifirst.parentnode  //
+liFirst.parentElement //get parent element
+  
+lifirst.closest('body')  // body  element selected 
+lifirst.closest('header')
+
+
+
+**taking reference code of index.html
+
+
+//selecting sibling ElementByClassName
+
+const ul =li.parentnode
+ul.previousSibling    //text 
+ul.previousElementSibling  //header
+ul.nextSibling //text
+ul.nextElementSibling  //input
+
+
+//
+
+const section =document.querySelector('section')
+section.style.backgroundColor = 'blue'   //change the color of section
+section.className = ' ' 
