@@ -86,8 +86,51 @@ ul.nextSibling //text
 ul.nextElementSibling  //input
 
 
-//
+
 
 const section =document.querySelector('section')
 section.style.backgroundColor = 'blue'   //change the color of section
 section.className = ' ' 
+
+
+
+//Adding Element via Create Element
+
+const list = document.querySelector('ul')  
+const newLi = document.createElement('li')  //new element store in variable 
+list.append(newLi)  //and add in existing list
+newLi.textContent ="Item 4"  //add the new text content
+newLi.style.backgroundColor = 'blue'  //make new element like this we can add style like this
+
+//add like this also
+list.append('something text') //will add this text
+list.append("hello friends","hi everyone")
+
+list.prepend("newLi") //will append in starting of list
+list.lastElementChid.before(newLi) //will add before the last element
+list.lastElementChid.after(newLi) //will add after the last element
+list.firstElementChild.replaceWith(newLi) //here Item1 will drop and place newLi there
+
+//using like below is more convenient
+
+const secondLi = list.children[1]
+const newLi2 =document.createElement('li')
+newLi.textContent = "Item 4"
+secondLi.insertAdjacentElement('afterend',newLi) //now it will add after the second element of list
+
+//cloninng DOM
+const newLi2 = newLi.childnode(true)
+list.append(newLi,newLi2) //will add same content of newLi after newLi
+
+
+//live node Vs static node list
+const listItems = list.querySelectorAll('li') 
+listItems //will gives nodelist
+const listitems2 = list.getElementByTagName('li')
+listitems2 //give HTMLCollection
+
+
+//removing Elements
+list.remove() //will remove all elements from the DOm(also have good support)
+list.parentElement.removeChild(list)  //saffest way  remove all list elements
+
