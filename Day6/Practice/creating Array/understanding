@@ -1,0 +1,35 @@
+// // There are many ways to creating array
+
+
+// case:1
+// const numbers = [1, 2, 3];
+
+// case:2
+// const moreNumbers = Array(5, 2);
+// const moreNumbers = Array(5);  ---will make array with 5 unknown elements
+
+// case:3
+// const yetMoreNumbers = Array.of(1, 2);
+
+// case:4
+// const iterateString =  Array.from('sting');
+
+
+//array operation
+
+// const hobbies = ['singing','dancing']
+// hobbies.push('Writing'); //will add in last
+// hobbies.pop() //will remove item from last
+// hobbies.unshift('Coding'); //shift every items to right
+// hobbies.shift() //shift everyitems to left
+// console.log(hobbies)
+
+
+
+//spice method (startingpoint,give count want to remove,replaceelement with deleted )
+
+// const name = ["Ashu","kuldeep","mihir","vivek","rakesh","foram","amita"]
+// name.splice(4,3,"friends") //[ "Ashu", "kuldeep", "mihir", "vivek", "friends" ]
+// name.splice(3)// [ "Ashu", "kuldeep", "mihir" ]
+// name.splice(1,0,"vivek") //[ "Ashu", "vivek", "kuldeep", "mihir" ]
+// console.log(name)
