@@ -29,7 +29,7 @@ hobbies.shift() //shift everyitems to left
 
 
 
-//spice method (startingpoint,give count want to remove,replaceelement with deleted )
+//splice method (startingpoint,give count want to remove,replaceelement with deleted )
 
 const name = ["Ashu","kuldeep","mihir","vivek","rakesh","foram","amita"]
 name.splice(4,3,"friends") //[ "Ashu", "kuldeep", "mihir", "vivek", "friends" ]
@@ -41,7 +41,7 @@ console.log(name)
 
 
 //slice method   -selecting range,coping array
-// slice(start,endindex) //will not include last index,you can't use negative index
+// slice(start,endindex) //will not include last index,you cant use' negative index
 
 
 const storedresult = [1,2,6,-0.8,4,77]

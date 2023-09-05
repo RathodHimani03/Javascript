@@ -1,0 +1,24 @@
+The JavaScript number object enables you to represent a numeric value. 
+It may be integer or floating-poin
+
+
+NaN can't be compare with any it will give false
+
+for that using method isNaN()
+
+Examples:
+
+NaN == NaN //false
+
+NaN == 0 //false
+
+NaN < 0  //false
+
+NaN > Na //false
+
+
+by using the method 
+
+Number.isNaN(undefined) //NaN
+
+Number(null) //0

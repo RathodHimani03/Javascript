@@ -182,12 +182,24 @@ class App {
             activeProjectList.addProject.bind(activeProjectList)
         );
 
-
-        //can create script like this dynamically
+         
+        setTimeout(this.startAnalytics,3000)
+        // document.getElementById('stop-analytics-btn').
+        // addEventListener('click',this.startAnalytics);
+        // can create script like this dynamically
         
-        const somescript = document.createElement('script');
-        somescript.textContent = 'alert("Hi  there!")';
-        document.head.append(somescript);
+        // const somescript = document.createElement('script');
+        // somescript.textContent = 'alert("Hi  there!")';
+        // document.head.append(somescript);
+
+        
+    }
+    static startAnalytics(){
+
+        const analyticsScript = document.createElement('script');;
+        analyticsScript.src = 'assets/scripts/analytics.js'
+        analyticsScript.defer = true;
+        document.head.append(analyticsScript)
     };
 
 }
