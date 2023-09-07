@@ -2,9 +2,9 @@
 
 // Example:
 
-this.name = "Himani";
+this.name = "Ashu";
 let myFun = {
-    name : "Ravirajsinh",
+    name : "Mihir",
 
     // Arrow function default points to global this
     arrow : () => {
@@ -14,8 +14,8 @@ let myFun = {
 		console.log(this.name); // 'this' binding works here
 	}
 }
-myFun.arrow();  //Himani
-myFun.myFun1(); //Ravirajsinh
+myFun.arrow();  //Ashu
+myFun.myFun1(); //Mihir
 
 // -------------------------------------------------------------------------------------
 
