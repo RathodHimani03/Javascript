@@ -1,0 +1,45 @@
+=>The JavaScript number object enables you to represent a numeric value. 
+It may be integer or floating-poin
+=>Null is an Object (typeof(null)=>object)
+=>NaN is Number (typeof(NaN)=> Number)
+
+
+
+=>NaN can't be compare with any it will give false
+
+=>for that using method isNaN()
+
+Examples:
+
+NaN == NaN //false
+
+NaN == 0 //false
+
+NaN < 0  //false
+
+NaN > Na //false
+
+
+by using the method isNaN()
+
+let x=NaN
+isNaN(x) //true
+
+isNaN(0) //false
+
+isNaN(NaN) //true
+
+isNaN(null) //false
+
+//some of comparisons
+
+undefined == 0 //false
+undefined == undefined //true
+undefined === undefined //true
+null == null //true
+null === null //true
+undefined == null //true
+undefined === null //false
+undefined >= 0 //false
+"" == false //true
+null == 0 //false
