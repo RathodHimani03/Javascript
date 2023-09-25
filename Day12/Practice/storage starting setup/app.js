@@ -1,26 +1,58 @@
 const storeBtn = document.getElementById('store-btn');
 const retrBtn = document.getElementById('retrieve-btn');
 
-const userId = '123';
+let db;
 
-const user = {
-    name:'Max',
-    age:30,
-    hobbies:['Sports','Cooking']
-}
-storeBtn.addEventListener('click',() => {
-    localStorage.setItem('uid',userId);
-    sessionStorage.setItem('user',JSON.stringify(user))
-        
-})
+const dbRequest = indexedDB.open('StorageDummy', 1);
 
-retrBtn.addEventListener('click',() => {
-    const extractedId = localStorage.getItem('uid');
+dbRequest.onsuccess = function(event) {
+  db = event.target.result;
+};
 
-    if(extractedId){
-        console.log('Get the id-'+extractedId)
-    }
-    else{
-        console.log('could not find id');
-    }
-})
+dbRequest.onupgradeneeded = function(event) {
+  db = event.target.result;
+
+  const objStore = db.createObjectStore('products', { keyPath: 'id' });
+
+  objStore.transaction.oncomplete = function(event) {
+    const productsStore = db
+      .transaction('products', 'readwrite')
+      .objectStore('products');
+    productsStore.add({
+      id: 'p1',
+      title: 'A First Product',
+      price: 12.99,
+      tags: ['Expensive', 'Luxury']
+    });
+  };
+};
+
+dbRequest.onerror = function(event) {
+  console.log('ERROR!');
+};
+
+storeBtn.addEventListener('click', () => {
+  if (!db) {
+    return;
+  }
+  const productsStore = db
+    .transaction('products', 'readwrite')
+    .objectStore('products');
+  productsStore.add({
+    id: 'p2',
+    title: 'A Second Product',
+    price: 122.99,
+    tags: ['Expensive', 'Luxury']
+  });
+});
+
+retrBtn.addEventListener('click', () => {
+  const productsStore = db
+    .transaction('products', 'readwrite')
+    .objectStore('products');
+  const request = productsStore.get('p2');
+
+  request.onsuccess = function() {
+    console.log(request.result);
+  }
+});
