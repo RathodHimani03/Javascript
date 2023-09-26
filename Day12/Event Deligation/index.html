@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="mylist">
+        <li>Apple</li>
+        <li>Orange</li>
+        <li>Mangoes</li>
+        <li>Banana</li>
+        <li>Watermalon</li>
+    </ul>
+
+    <script>
+        const mylist =document.querySelector('ul') 
+        mylist.addEventListener('click',(e)=>{
+          
+            let target = e.target;
+            
+            if(target.matches("li")){
+                console.log(target)
+           
+                target.style.backgroupColor = "red";
+           
+            }
+
+        })
+        </script>
+</body>
+</html>
