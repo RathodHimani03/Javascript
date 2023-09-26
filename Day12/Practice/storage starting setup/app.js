@@ -1,7 +1,7 @@
 const storeBtn = document.getElementById('store-btn');
 const retrBtn = document.getElementById('retrieve-btn');
 
-let db;
+  let db;
 
 const dbRequest = indexedDB.open('StorageDummy', 1);
 
@@ -56,3 +56,8 @@ retrBtn.addEventListener('click', () => {
     console.log(request.result);
   }
 });
+
+const customerData = [
+  { ssn: "444-44-4444", name: "Bill", age: 35, email: "bill@company.com" },
+  { ssn: "555-55-5555", name: "Donna", age: 32, email: "donna@home.org" },
+];
