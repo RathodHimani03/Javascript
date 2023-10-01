@@ -9,14 +9,10 @@ const calculateButton = document.querySelector('div').children[9];
 const maindiv = document.querySelector('div');
 
 
+let tableObj = {}
+let sr = 0
 
-//for adding the new record
-
-
-let arrCurrency = [];
-let arrcount = [];
-let arrtotal = [];
-
+//Add buttton onClick operation
 const addButtonHandler = () => {
 
     let total;
@@ -25,10 +21,22 @@ const addButtonHandler = () => {
 
     if (currency.value.length != 0 && count.value.length != 0) {
         total = currencyValue * countValue;
-        displayRow(currencyValue, countValue, total);
-        arrCurrency.push(currencyValue);
-        arrcount.push(countValue);
-        arrtotal.push(total);
+        sr++;
+        
+        tableObj[`${sr}`] = {
+            id: `${sr}`,
+            currencyValue: `${currencyValue}`,
+            countValue: `${countValue}`,
+            total: `${total}`
+
+        }
+        console.log(tableObj)
+        //for display values on table
+        displayRow(tableObj[`${sr}`]['id'],
+            tableObj[`${sr}`]['currencyValue'],
+            tableObj[`${sr}`]['countValue'],
+            tableObj[`${sr}`]['total']);
+
 
     }
     else {
@@ -36,12 +44,12 @@ const addButtonHandler = () => {
     }
 }
 
-let sr = 1;
-const displayRow = (currency, count, total, modifimod = false) => {
+//display Rows on Table
+const displayRow = (id, currency, count, total, modifie = false) => {
 
     const tr = document.createElement('tr')
     const th = document.createElement('th')
-    th.textContent = `${sr++}`;
+    th.textContent = `${id}`;
     tr.append(th);
     let arr = [currency, count, total];
     for (let i of arr) {
@@ -49,60 +57,130 @@ const displayRow = (currency, count, total, modifimod = false) => {
         td.textContent = i;
         tr.append(td);
     }
-    tr.setAttribute('id', sr)
+    tr.setAttribute('id', id)
     table.append(tr);
+    console.log(id)
 
 }
 
-const displaycalculation = (countObj, calcValue) => {
-    const sorted = Object.keys(countObj).sort((a, b) => a - b)
-    
-    for (let i of sorted) {
-        let sum;
-     
-        let total = i * countObj[i];
+//update operation
+const modifieContent = (id, total, count) => {
+    table.querySelectorAll('tr')[id].children[2].textContent = count
+    table.querySelectorAll('tr')[id].children[3].textContent = total
+}
+
+//Calcute amount operation
+const displaycalculation = (calcValue) => {
+    temArr = [];
+    for (let i in tableObj) {
+       if(parseInt(tableObj[i]['currencyValue'])<= calcValue){
+
+        tempObject = {}; //for storing id,cumOfNotes for getting min notes from all summ
+        sumOfNote = 0 //getting total of all notes
+        tamount = 0  //get total of all currency
+
+        let currencyValue = parseInt(tableObj[i]['currencyValue']);
+        let requirenote = parseInt(tableObj[i]['requirenote']);
+        let total = requirenote * currencyValue;
 
         if (total == calcValue) {
-            const creatdiv = document.createElement('div');
-            creatdiv.textContent = `${countObj[i]} x ${i} = ${total}`;
-            maindiv.append(creatdiv);
-            sum = total;
-            
-           
 
+            const creatdiv = document.createElement('div');
+            creatdiv.textContent = `${currencyValue} x ${requirenote} = ${total}`;
+            maindiv.append(creatdiv);
+            tempObject[tableObj[i]['id']] = requirenote
+
+            sumOfNote += requirenote;
+            tamount += total
         }
         else {
-            let temp;
-            let subobj = {}
+
             const creatdiv2 = document.createElement('div');
-            creatdiv2.textContent = `${countObj[i]} x ${i} = ${total}`;
-            // let find = parseInt(calcValue/total);
-            subobj[i] = countObj[sorted[i]]
+            creatdiv2.textContent = `${currencyValue} x ${requirenote} = ${total}`;
+            tempObject[tableObj[i]['id']] = requirenote
+
+            sumOfNote += requirenote
+            tamount += total
             temp = calcValue - total;
-            sum = total; //for checking that totall wil been calcvalue
 
             let div, mul;
-            for (let j = sorted.indexOf(i) + 1; j < sorted.length; j++) {
+            for (let j in tableObj) {
 
-                if (temp <= calcValue && temp >= countObj[sorted[j]]) {
-                    console.log(countObj[sorted[j]])
-                    div = parseInt(temp / countObj[sorted[j]])
-                    mul = div * countObj[sorted[j]]
-                    temp = temp - mul;
-                    creatdiv2.textContent += `+ ${countObj[sorted[j]]} x ${div} = ${mul}`;
-                    sum += mul
-                   
-                    subobj[div] = countObj[sorted[j]]
-                }
-                maindiv.append(creatdiv2)
+                    if (temp < calcValue && temp >= parseInt(tableObj[j]['currencyValue'])) {
+
+                        div = parseInt(temp / parseInt(tableObj[j]['currencyValue']))
+                        mul = div * parseInt(tableObj[j]['currencyValue'])
+                        temp = temp - mul;
+                        creatdiv2.textContent += `+ ${parseInt(tableObj[j]['currencyValue'])} x ${div} = ${mul}`;
+                        tempObject[tableObj[j]['id']] = div
+
+                        sumOfNote += div
+                        tamount += mul
+                        
+                    }
+                    maindiv.append(creatdiv2)
+                
             }
 
-         
-
         }
+        
+        console.log(tamount)
+       
+        if (tamount == calcValue) {
+            tempObject.sumOfNote = sumOfNote
+            temArr.push(tempObject)
+        }
+        console.log(temArr)
+       }
 
     }
-  
+
+    let getsum = [];
+
+    for (let i of temArr) {
+        for (let j in i) {
+            if (j == 'sumOfNote') {
+                getsum.push(i[j])
+            }
+        }
+    }
+    console.log(getsum)
+
+    //find the least number of notes  
+    let getValue = getsum.sort((a, b) => a - b)[0];
+
+    for (let i of temArr) {
+        for (let j in i) {
+            if (i['sumOfNote'] == getValue) {
+                console.log('----')
+                console.log(i);
+                for (let k in i) {
+                    if (k != 'sumOfNote') {
+                        for (let r in tableObj) {
+                            let id, tvalue, cvalue;
+                            console.log('****')
+                            if (k == r) {
+                                id = tableObj[r]['id'];
+                                console.log(parseInt(i[j] * tableObj[r]['currencyValue'])
+                                )
+                                console.log(parseInt(i[k]))
+                                tvalue = parseInt(tableObj[r]['total']) - parseInt(i[k] * tableObj[r]['currencyValue'])
+                                cvalue = parseInt(tableObj[r]['countValue']) - parseInt(i[k])
+                                tableObj[r]['total'] = tvalue;
+                                tableObj[r]['countValue'] = cvalue
+                                //for modification
+                                modifieContent(id, tvalue, cvalue)
+                                console.log(tableObj[r])
+                            }
+                        }
+                    }
+                }
+            }
+            break
+        }
+    }
+
+
 
 }
 
@@ -112,28 +190,33 @@ const calculateButtonHandler = () => {
     let totalAmountValue = parseInt(totalAmount.value);
 
     let calcValue = givenAmountValue - totalAmountValue;
-    let tcountObj = {};
+
 
     if (givenAmountValue > totalAmountValue) {
-        for (let i = 0; i < arrCurrency.length; i++) {
-            if (arrCurrency[i] < calcValue) {
+        for (let i in tableObj) {
+            let currencyValue = parseInt(tableObj[i]['currencyValue']);
+            let currencyCount = parseInt(tableObj[i]['countValue']);
+
+            if (currencyValue <= calcValue) {
                 let tcount;
-                tcount = calcValue / arrCurrency[i];
-                if (tcount > arrcount[i]) {
-                    tcount = arrcount[i]
+                tcount = calcValue / currencyValue;
+                console.log(tcount)
+                if (tcount == 1) {
+                    tcount = 1
+
                 }
-                // const creatdiv = document.createElement('div');
-                // creatdiv.textContent = `${arrCurrency[i]} x ${tcount} = ${arrCurrency[i]*tcount}`;
-                // maindiv.append(creatdiv);
-                tcountObj[tcount] = arrCurrency[i];
+                if (tcount >= currencyCount) {
+                    tcount = currencyCount
+                }
+
+
+                tableObj[i].requirenote = tcount
             }
 
         }
-        //     let returnVal = Object.keys(tcountObj).sort((a,b)=>a-b)[0]
-        //    console.log(returnVal)
-        console.log(tcountObj)
-        displaycalculation(tcountObj, calcValue)
+        console.log(tableObj)
 
+        displaycalculation(calcValue)
     }
 
 }
