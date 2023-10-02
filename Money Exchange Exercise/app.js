@@ -22,7 +22,7 @@ const addButtonHandler = () => {
     if (currency.value.length != 0 && count.value.length != 0) {
         total = currencyValue * countValue;
         sr++;
-        
+
         tableObj[`${sr}`] = {
             id: `${sr}`,
             currencyValue: `${currencyValue}`,
@@ -73,65 +73,65 @@ const modifieContent = (id, total, count) => {
 const displaycalculation = (calcValue) => {
     temArr = [];
     for (let i in tableObj) {
-       if(parseInt(tableObj[i]['currencyValue'])<= calcValue){
+        if (parseInt(tableObj[i]['currencyValue']) <= calcValue) {
 
-        tempObject = {}; //for storing id,cumOfNotes for getting min notes from all summ
-        sumOfNote = 0 //getting total of all notes
-        tamount = 0  //get total of all currency
+            tempObject = {}; //for storing id,cumOfNotes for getting min notes from all summ
+            sumOfNote = 0 //getting total of all notes
+            tamount = 0  //get total of all currency
 
-        let currencyValue = parseInt(tableObj[i]['currencyValue']);
-        let requirenote = parseInt(tableObj[i]['requirenote']);
-        let total = requirenote * currencyValue;
+            let currencyValue = parseInt(tableObj[i]['currencyValue']);
+            let requirenote = parseInt(tableObj[i]['requirenote']);
+            let total = requirenote * currencyValue;
 
-        if (total == calcValue) {
+            if (total == calcValue) {
 
-            const creatdiv = document.createElement('div');
-            creatdiv.textContent = `${currencyValue} x ${requirenote} = ${total}`;
-            maindiv.append(creatdiv);
-            tempObject[tableObj[i]['id']] = requirenote
+                const creatdiv = document.createElement('div');
+                // creatdiv.textContent = `${currencyValue} x ${requirenote} = ${total}`;
+                // maindiv.append(creatdiv);
+                tempObject[tableObj[i]['id']] = requirenote
 
-            sumOfNote += requirenote;
-            tamount += total
-        }
-        else {
+                sumOfNote += requirenote;
+                tamount += total
+            }
+            else {
 
-            const creatdiv2 = document.createElement('div');
-            creatdiv2.textContent = `${currencyValue} x ${requirenote} = ${total}`;
-            tempObject[tableObj[i]['id']] = requirenote
+                const creatdiv2 = document.createElement('div');
+                // creatdiv2.textContent = `${currencyValue} x ${requirenote} = ${total}`;
+                tempObject[tableObj[i]['id']] = requirenote
 
-            sumOfNote += requirenote
-            tamount += total
-            temp = calcValue - total;
+                sumOfNote += requirenote
+                tamount += total
+                temp = calcValue - total;
 
-            let div, mul;
-            for (let j in tableObj) {
+                let div, mul;
+                for (let j in tableObj) {
 
                     if (temp < calcValue && temp >= parseInt(tableObj[j]['currencyValue'])) {
 
                         div = parseInt(temp / parseInt(tableObj[j]['currencyValue']))
                         mul = div * parseInt(tableObj[j]['currencyValue'])
                         temp = temp - mul;
-                        creatdiv2.textContent += `+ ${parseInt(tableObj[j]['currencyValue'])} x ${div} = ${mul}`;
+                        // creatdiv2.textContent += `+ ${parseInt(tableObj[j]['currencyValue'])} x ${div} = ${mul}`;
                         tempObject[tableObj[j]['id']] = div
 
                         sumOfNote += div
                         tamount += mul
-                        
+
                     }
-                    maindiv.append(creatdiv2)
-                
+                    // maindiv.append(creatdiv2)
+
+                }
+
             }
 
+            console.log(tamount)
+
+            if (tamount == calcValue) {
+                tempObject.sumOfNote = sumOfNote
+                temArr.push(tempObject)
+            }
+            console.log(temArr)
         }
-        
-        console.log(tamount)
-       
-        if (tamount == calcValue) {
-            tempObject.sumOfNote = sumOfNote
-            temArr.push(tempObject)
-        }
-        console.log(temArr)
-       }
 
     }
 
@@ -154,6 +154,8 @@ const displaycalculation = (calcValue) => {
             if (i['sumOfNote'] == getValue) {
                 console.log('----')
                 console.log(i);
+                const creatdiv2 = document.createElement('div');
+                let c = 0;
                 for (let k in i) {
                     if (k != 'sumOfNote') {
                         for (let r in tableObj) {
@@ -168,8 +170,21 @@ const displaycalculation = (calcValue) => {
                                 cvalue = parseInt(tableObj[r]['countValue']) - parseInt(i[k])
                                 tableObj[r]['total'] = tvalue;
                                 tableObj[r]['countValue'] = cvalue
+
+                                console.log(`>>>`);
+                                c += parseInt(i[k] * tableObj[r]['currencyValue'])
+                                console.log(parseInt(i[k] * tableObj[r]['currencyValue']))
+                                creatdiv2.textContent += ` ${parseInt(tableObj[r]['currencyValue'])} x ${(parseInt(i[k]))} = ${(parseInt(i[k] * tableObj[r]['currencyValue']))}`;
+
+                                if (c == calcValue) {
+                                    creatdiv2.textContent += `= ${calcValue}`
+                                }
+                                else {
+                                    creatdiv2.textContent += `+`
+                                }
                                 //for modification
                                 modifieContent(id, tvalue, cvalue)
+                                maindiv.append(creatdiv2)
                                 console.log(tableObj[r])
                             }
                         }
